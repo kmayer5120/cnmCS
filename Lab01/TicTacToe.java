@@ -56,11 +56,12 @@ public class TicTacToe
             if(!valid)
             {
                 //restart turn -- move is not valid
-                System.out.printf("%n%s","Invalid move! Restarting turn.");
+                System.out.printf("%n%s%s%s%n","Invalid move! Restarting ", this.getPlayer(), "'s turn.");
                 continue;
             }
             else
             {
+                //perform move operations
                 this.makeMove();
                 this.printBoard();
             }
@@ -226,11 +227,10 @@ public class TicTacToe
     private boolean validMove()
     {
         //check for out of bounds 
-        if(moveRow > board.length || moveColumn > board.length)
+        if(moveRow > board.length - 1 || moveColumn > board.length - 1)
             return false;
         if(moveRow < 0 || moveColumn < 0)
             return false;
-
         //check for empty spot for move
         valid = (board[moveRow][moveColumn].equals("EMPTY")) ? true : false;
         return valid;
