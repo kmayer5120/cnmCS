@@ -1,0 +1,27 @@
+TicTacToe
+----------------------------------|
+- board : String[][]
+- state : enum
+- player : String
+- moveRow : int
+- moveColumn : int
+- valid : Boolean
+- win : Boolean
++ input : Scanner
+
+----------------------------------|
+<<constructor>>TicTacToe()
++ play() : void
++ gameStatus() : String
++ printStatus() : void
++ printBoard() : void
+- validMove() : Boolean
++ setPlayer(player : String) : void
++ getPlayer() : String
++ setMoveColumn(column : int) : void
++ getColumn() : String
++ setMoveRow(row : int) : void
++ getRow() : String
++ makeMove() : void
+
+----------------------------------|
