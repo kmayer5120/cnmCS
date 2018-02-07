@@ -9,14 +9,17 @@ import java.util.Scanner;
 
 public class TicTacToe
 {
+    //declare private String array to hold board values "x", "o", or "EMPTY".
     private String[][] board = new String[3][3]; 
+    //declare private enum BoardState.
     private BoardState state;
-    //declare instance variables
+    //declare instance variables.
     private String player;
     private int moveRow;
     private int moveColumn;
     private Boolean valid;
     private Boolean win;
+    //instantiate Scanner object to take user input from terminal.
     public Scanner input = new Scanner(System.in);
 
     public TicTacToe()
@@ -36,26 +39,25 @@ public class TicTacToe
                 this.board[row][col] = "EMPTY";
             } 
         }
-
-    }
+    } //end constructor TicTacToe
     
     public void play()
     {
-        printBoard();
+        /*
+         * Method play contains the main game loop.
+         *      1. Calls printStatus() to prompt player and set move.
+         *      2. Makes move if valid, else player is prompted for a move
+         *         that meets the conditions in validMove().
+         *      3. Gets game state and displays state if win or draw, else
+         *         continue playing.
+         *      4. If there is no win or draw the players are swapped and
+         *         the loop is continued.
+        */
 
         while(!win)
         {
-            //ask player for turn
-            System.out.printf("%n%s's turn.", this.getPlayer());
-            System.out.printf("%n%s: Enter row <0, 1, 2>: ", this.getPlayer());
-
-            //get row from player
-            this.setMoveRow(input.nextInt());
-            System.out.printf("%s: Enter column: <0, 1, 2>: ", this.getPlayer());
-
-            //get column from player
-            this.setMoveColumn(input.nextInt());
-
+            printStatus(); //ask player for move and set moves
+            
             //check for valid move
             this.valid = validMove();
 
@@ -99,7 +101,7 @@ public class TicTacToe
             }
          }            
         //loop until the game is over
-    }
+    } //end method play
 
     public String gameStatus()
     {
@@ -107,9 +109,11 @@ public class TicTacToe
          * Method checks board array for game conditions
          * after a move has made. 
          * Conditions:
-         *      Win
-         *      Draw
-         *      Continue
+         *      1. Win
+         *      2. Draw
+         *      3. Continue
+         *
+         *  Returns current state of the game.
          */
 
         //check for win on rows
@@ -163,7 +167,16 @@ public class TicTacToe
     public void printStatus()
     {
         //prompt the turn of a player, winner, or draw
-        //returns WIN, DRAW, or CONTINUE
+        //ask player for turn
+        System.out.printf("%n%s's turn.", this.getPlayer());
+        System.out.printf("%n%s: Enter row <0, 1, 2>: ", this.getPlayer());
+
+        //get row from player
+        this.setMoveRow(input.nextInt());
+        System.out.printf("%s: Enter column: <0, 1, 2>: ", this.getPlayer());
+
+        //get column from player
+        this.setMoveColumn(input.nextInt());
     } 
 
     public void swapPlayer()
@@ -179,9 +192,14 @@ public class TicTacToe
         }
     } //end method swapPlayer
 
-
     public void printBoard()
     {
+        /*
+         * printBoard displays 3x3 grid as part of the user interface and
+         * prints corresponding values for if the 3x3 String array contains
+         * values of "x", "o" or "EMPTY".
+        */
+
         System.out.printf("%n%s"," _______________________");
 
         //outputs the 3x3 board onto screen
@@ -205,7 +223,7 @@ public class TicTacToe
                     break;
                 }
 
-                //check space at array for EMPTY, x, or o string.                
+                //check space at array for EMPTY, x, or o string. Print corresponding value.               
                 if(this.board[row][col].equals("EMPTY"))
                 {
                     System.out.printf("%5s%s", "   ", " ");
@@ -226,64 +244,81 @@ public class TicTacToe
 
             } 
             System.out.printf("%n%s", "|_______|_______|_______|");
-            
         }
     } //end method printBoard
 
     private boolean validMove()
     {
-        //check for out of bounds 
+        /*
+         * validMove checks the validity of each proposed player move.
+         * False if:
+         *      1. Move value for row or column  is greater than bounds of 3x3 board array.
+         *      2. Move value for row or column is less than 0.
+         *      3. Index value for row and column does not contain String
+         *         literal value of "EMPTY".
+         *  True if:
+         *      1. Move falls on index value of 3x3 board array which contains
+         *         String literal value of "EMPTY".
+        */
+        //check for out of bounds -- greater than board array.
         if(moveRow > board.length - 1 || moveColumn > board.length - 1)
             return false;
+        //check for out of bounds -- less than 0.
         if(moveRow < 0 || moveColumn < 0)
             return false;
         //check for empty spot for move
         valid = (board[moveRow][moveColumn].equals("EMPTY")) ? true : false;
         return valid;
-    }
-
+    } //end method validMove
 
     public void setPlayer(String player)
     {
+        //mutator method for private instance variable player
         this.player = player;
-    }
+    } //end method setPlayer
 
     public String getPlayer()
     {
+        //accessor method for private instance variable player
         return this.player;
-    }
+    } //end method getPlayer
 
     public void setMoveColumn(int column)
     {
+        //mutator method for private instance variable column
         this.moveColumn = column;
-    }
+    } //end method setMoveColumn
 
     public int getMoveColumn()
     {
+        //accessor method for private instance variable column
         return this.moveColumn;
-    }
+    } //end method getMoveColumn
 
     public void setMoveRow(int row)
     {
+        //mutator method for private instance variable row
         this.moveRow = row;
-    }
+    } //end method setMoveRow 
 
     public int getMoveRow()
     {
+        //accessor method for private instance variable row
         return this.moveRow;
-    }
+    } //end method getMoveRow
 
     public void makeMove()
     {
         //after validation use makeMove to set either X or O in 
         //player's chosen row/column
         board[moveRow][moveColumn] = (this.getPlayer().equals("Player X")) ? "x" : "o";
-    } 
+    } //end method makeMove
 
 } //end class TicTacToe
 
 enum BoardState
 {
+    //BoardState holds named constants for game state
     WIN("win" ), 
     DRAW("draw"), 
     CONTINUE("continue");
@@ -292,11 +327,14 @@ enum BoardState
 
     BoardState(String state)
     {
+        //constructor for enum BoardState
+        //initialize private instance variable state
         this.state = state;
     }
 
     public String getState()
     {
+        //accessor method for private variable state;
         return state;
     }
 

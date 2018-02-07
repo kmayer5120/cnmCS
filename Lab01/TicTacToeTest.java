@@ -10,10 +10,11 @@ public class TicTacToeTest
 {
     public static void main(String[] args)
     {
+        //instantiate gameBoard
         TicTacToe gameBoard = new TicTacToe();
-        
+        //call printBoard to display board to players
+        gameBoard.printBoard();       
+        //call play to jump into game loop and play game
         gameBoard.play();
-
     }
-
 }
